@@ -83,7 +83,7 @@ public class PersonController {
 	public Person deletePerson(@PathVariable String firstName, @PathVariable String lastName) {
 		System.out.println("appel delete");
 		for (Person person : listPersons) {
-			if (person.firstName.equals(firstName) && person.lastName.equals(lastName)) {
+			if (person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)) {
 				listPersons.remove(person);
 				return person;
 			}

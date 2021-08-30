@@ -1,23 +1,15 @@
 package com.safetynet.alerts.model;
 
 public class Person{
-    public String firstName;
-    public String lastName;
-    public String address;
-    public String city;
-    public String zip;
-    public String phone;
-    public String email;
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String city;
+    private String zip;
+    private String phone;
+    private String email;
     public Person() {}
-	/*public Person(PersonDescription personDescription) {
-		this.setFirstName(personDescription.getFirstName());
-		this.setLastName(personDescription.getLastName());
-		this.setAddress(personDescription.getAddress());
-		this.setCity(personDescription.getCity());
-		this.setZip(personDescription.getZip());
-		this.setPhone(personDescription.getPhone());
-		this.setEmail(personDescription.getEmail());
-	}*/
+
 	public String getFirstName() {
 		return firstName;
 	}

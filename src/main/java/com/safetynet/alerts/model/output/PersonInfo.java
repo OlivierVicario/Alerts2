@@ -10,6 +10,14 @@ public class PersonInfo {
 	int age;
 	List<String> medications;
 	List<String> allergies;
+	
+	public PersonInfo(Citizen citizen) {
+		this.firstName = citizen.getFirstName();
+		this.lastName = citizen.getLastName();
+		this.age = citizen.getAge();
+		this.medications = citizen.getMedications();
+		this.allergies = citizen.getAllergies();
+	}
 	public String getFirstName() {
 		return firstName;
 	}
