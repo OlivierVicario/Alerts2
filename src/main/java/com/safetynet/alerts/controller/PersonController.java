@@ -10,7 +10,9 @@ import javax.annotation.PostConstruct;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -40,49 +42,38 @@ public class PersonController {
 		return null;
 	}
 
-	// @RequestMapping(path =
-	// "/person/add/{firstName}/{lastName}/{address}/{city}/{zip}/{phone}/{email}",
-	// method = RequestMethod.GET)
-	@GetMapping("/person/add/{firstName}/{lastName}/{address}/{city}/{zip}/{phone}/{email}")
-	public Person createPerson(@PathVariable String firstName, @PathVariable String lastName,
-			@PathVariable String address, @PathVariable String city, @PathVariable String zip,
-			@PathVariable String phone, @PathVariable String email) {
-		Person person = new Person();
-		person.setAddress(address);
-		person.setFirstName(firstName);
-		person.setLastName(lastName);
-		person.setCity(city);
-		person.setZip(zip);
-		person.setPhone(phone);
-		person.setEmail(email);
-		listPersons.add(person);
-		return person;
+	@PostMapping("/person/add")
+	public Person createEmployee(@RequestBody PersonDescription personDescription) {
+		Person newPerson = new Person(personDescription);
+		listPersons.add(newPerson);
+		return newPerson;
 	}
 
-	@DeleteMapping("/person/delete/{firstName}/{lastName}")
-	public Person deletePerson(@PathVariable String firstName, @PathVariable String lastName) {
-		System.out.println("appel delete");
-		for (Person person : listPersons) {
-			if (person.firstName.equals(firstName) && person.lastName.equals(lastName)) {
-				listPersons.remove(person);
-				return person;
+	@DeleteMapping("/person/delete")
+	public int deletePerson(@RequestBody PersonDescription personDescription) throws Exception{
+		int index=0;
+		int indexPerson=-1;
+		for (Person person : listPersons) {			
+			if (person.getFirstName().equals(personDescription.getFirstName())
+					&& person.getLastName().equals(personDescription.getLastName())) {
+				indexPerson = index;
 			}
-
+			index++;
 		}
-		return null;
+		listPersons.remove(indexPerson);
+		return indexPerson;
 	}
 
-	@PutMapping("/person/update/{firstName}/{lastName}/{address}/{city}/{zip}/{phone}/{email}")
-	public Person updatePerson(@PathVariable String firstName, @PathVariable String lastName,
-			@PathVariable String address, @PathVariable String city, @PathVariable String zip,
-			@PathVariable String phone, @PathVariable String email) {
+	@PutMapping("/person/update")
+	public Person updatePerson(@RequestBody PersonDescription personDescription) throws Exception {
 		for (Person person : listPersons) {
-			if (person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)) {
-				person.setAddress(address);
-				person.setCity(city);
-				person.setZip(zip);
-				person.setPhone(phone);
-				person.setEmail(email);
+			if (person.getFirstName().equals(personDescription.getFirstName())
+					&& person.getLastName().equals(personDescription.getLastName())) {
+				person.setAddress(personDescription.getAddress());
+				person.setCity(personDescription.getCity());
+				person.setZip(personDescription.getZip());
+				person.setPhone(personDescription.getPhone());
+				person.setEmail(personDescription.getEmail());
 				return person;
 			}
 		}

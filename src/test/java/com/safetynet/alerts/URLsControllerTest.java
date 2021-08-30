@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,13 +22,14 @@ import org.springframework.web.context.WebApplicationContext;
 //****************** from Java Spring 3eme ed. ed ENI p.272 *******************************
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration("test-servlet-context.xml")
+//@ContextConfiguration("test-servlet-context.xml")
 
-//@SpringBootTest
+@SpringBootTest
 public class URLsControllerTest {
 
 	@Autowired
 	private WebApplicationContext wac;
+	//@Autowired
 	private MockMvc mockMvc;
 
 	@Before
