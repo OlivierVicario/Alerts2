@@ -1,7 +1,5 @@
 package com.safetynet.alerts.model;
 
-import com.safetynet.alerts.controller.PersonDescription;
-
 public class Person{
     public String firstName;
     public String lastName;
@@ -11,7 +9,7 @@ public class Person{
     public String phone;
     public String email;
     public Person() {}
-	public Person(PersonDescription personDescription) {
+	/*public Person(PersonDescription personDescription) {
 		this.setFirstName(personDescription.getFirstName());
 		this.setLastName(personDescription.getLastName());
 		this.setAddress(personDescription.getAddress());
@@ -19,7 +17,7 @@ public class Person{
 		this.setZip(personDescription.getZip());
 		this.setPhone(personDescription.getPhone());
 		this.setEmail(personDescription.getEmail());
-	}
+	}*/
 	public String getFirstName() {
 		return firstName;
 	}

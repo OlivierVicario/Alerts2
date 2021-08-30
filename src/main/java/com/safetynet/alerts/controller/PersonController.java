@@ -19,8 +19,12 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.model.PersonDetail;
 import com.safetynet.alerts.model.Root;
 
+import io.swagger.annotations.Api;
+
+@Api(value = "PersonController", description = "REST APIs related to Person Entity")
 @RestController
 public class PersonController {
 
@@ -42,38 +46,63 @@ public class PersonController {
 		return null;
 	}
 
+	// @RequestMapping(path =
+	// "/person/add/{firstName}/{lastName}/{address}/{city}/{zip}/{phone}/{email}",
+	// method = RequestMethod.GET)
+//	@GetMapping("/person/add/{firstName}/{lastName}/{address}/{city}/{zip}/{phone}/{email}")
+//	public Person createPerson(@PathVariable String firstName, @PathVariable String lastName,
+//			@PathVariable String address, @PathVariable String city, @PathVariable String zip,
+//			@PathVariable String phone, @PathVariable String email) {
+//		Person person = new Person();
+//		person.setAddress(address);
+//		person.setFirstName(firstName);
+//		person.setLastName(lastName);
+//		person.setCity(city);
+//		person.setZip(zip);
+//		person.setPhone(phone);
+//		person.setEmail(email);
+//		listPersons.add(person);
+//		return person;
+//	}
+	
 	@PostMapping("/person/add")
-	public Person createEmployee(@RequestBody PersonDescription personDescription) {
-		Person newPerson = new Person(personDescription);
-		listPersons.add(newPerson);
-		return newPerson;
+	public Person createPerson(@RequestBody PersonDetail personDetail) {
+		Person person = new Person();
+		person.setAddress(personDetail.getAdress());
+		person.setFirstName(personDetail.getFirstName());
+		person.setLastName(personDetail.getLastName());
+		person.setCity(personDetail.getCity());
+		person.setZip(personDetail.getZipCode());
+		person.setPhone(personDetail.getPhone());
+		person.setEmail(personDetail.getEmail());
+		listPersons.add(person);
+		return person;
 	}
 
-	@DeleteMapping("/person/delete")
-	public int deletePerson(@RequestBody PersonDescription personDescription) throws Exception{
-		int index=0;
-		int indexPerson=-1;
-		for (Person person : listPersons) {			
-			if (person.getFirstName().equals(personDescription.getFirstName())
-					&& person.getLastName().equals(personDescription.getLastName())) {
-				indexPerson = index;
-			}
-			index++;
-		}
-		listPersons.remove(indexPerson);
-		return indexPerson;
-	}
-
-	@PutMapping("/person/update")
-	public Person updatePerson(@RequestBody PersonDescription personDescription) throws Exception {
+	@DeleteMapping("/person/delete/{firstName}/{lastName}")
+	public Person deletePerson(@PathVariable String firstName, @PathVariable String lastName) {
+		System.out.println("appel delete");
 		for (Person person : listPersons) {
-			if (person.getFirstName().equals(personDescription.getFirstName())
-					&& person.getLastName().equals(personDescription.getLastName())) {
-				person.setAddress(personDescription.getAddress());
-				person.setCity(personDescription.getCity());
-				person.setZip(personDescription.getZip());
-				person.setPhone(personDescription.getPhone());
-				person.setEmail(personDescription.getEmail());
+			if (person.firstName.equals(firstName) && person.lastName.equals(lastName)) {
+				listPersons.remove(person);
+				return person;
+			}
+
+		}
+		return null;
+	}
+
+	@PutMapping("/person/update/{firstName}/{lastName}/{address}/{city}/{zip}/{phone}/{email}")
+	public Person updatePerson(@PathVariable String firstName, @PathVariable String lastName,
+			@PathVariable String address, @PathVariable String city, @PathVariable String zip,
+			@PathVariable String phone, @PathVariable String email) {
+		for (Person person : listPersons) {
+			if (person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)) {
+				person.setAddress(address);
+				person.setCity(city);
+				person.setZip(zip);
+				person.setPhone(phone);
+				person.setEmail(email);
 				return person;
 			}
 		}
