@@ -28,7 +28,7 @@ import io.swagger.annotations.Api;
 @RestController
 public class PersonController {
 
-	List<Person> listPersons = new ArrayList<Person>();
+	public List<Person> listPersons = new ArrayList<Person>();
 
 	// Find
 	@GetMapping("/persons")
@@ -45,25 +45,6 @@ public class PersonController {
 		}
 		return null;
 	}
-
-	// @RequestMapping(path =
-	// "/person/add/{firstName}/{lastName}/{address}/{city}/{zip}/{phone}/{email}",
-	// method = RequestMethod.GET)
-//	@GetMapping("/person/add/{firstName}/{lastName}/{address}/{city}/{zip}/{phone}/{email}")
-//	public Person createPerson(@PathVariable String firstName, @PathVariable String lastName,
-//			@PathVariable String address, @PathVariable String city, @PathVariable String zip,
-//			@PathVariable String phone, @PathVariable String email) {
-//		Person person = new Person();
-//		person.setAddress(address);
-//		person.setFirstName(firstName);
-//		person.setLastName(lastName);
-//		person.setCity(city);
-//		person.setZip(zip);
-//		person.setPhone(phone);
-//		person.setEmail(email);
-//		listPersons.add(person);
-//		return person;
-//	}
 	
 	@PostMapping("/person/add")
 	public Person createPerson(@RequestBody PersonDetail personDetail) {

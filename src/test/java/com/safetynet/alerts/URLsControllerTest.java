@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 //****************** from Java Spring 3eme ed. ed ENI p.272 *******************************
-@RunWith(SpringJUnit4ClassRunner.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 //@ContextConfiguration("test-servlet-context.xml")
 
