@@ -27,7 +27,7 @@ import io.swagger.annotations.Api;
 @Api(value = "MedicalrecordController", description = "REST APIs related to Medicalrecord Entity")
 @RestController
 public class MedicalrecordController {
-	List<Medicalrecord> listMedicalrecords = new ArrayList<Medicalrecord>();
+	public List<Medicalrecord> listMedicalrecords = new ArrayList<Medicalrecord>();
 	
 	// Find
 	@GetMapping("/medicalrecords")
@@ -49,17 +49,18 @@ public class MedicalrecordController {
 	}
 	
 	
-	@PutMapping("/medicalrecord/update/{firstName}/{lastName}/{address}/{city}/{zip}/{phone}/{email}")
-	public Medicalrecord updatemedicalrecord(@RequestBody MedicalrecordDetail medicalrecordDetail) {
+	@PutMapping("/medicalrecord/update")
+	public void updatemedicalrecord(@RequestBody MedicalrecordDetail medicalrecordDetail) {
 		for (Medicalrecord medicalrecord : listMedicalrecords) {
+			System.out.print(false);
 			if (medicalrecord.getFirstName().equals(medicalrecordDetail.getFirstName()) && medicalrecord.getLastName().equals(medicalrecordDetail.getLastName())) {
 				medicalrecord.setBirthdate(medicalrecordDetail.getBirthdate());
 				medicalrecord.setMedications(medicalrecordDetail.getMedications());
 				medicalrecord.setAllergies(medicalrecordDetail.getAllergies());
-				return medicalrecord;
+				
 			}
 		}
-		return null;
+		
 	}
 
 	@DeleteMapping("/medicalrecord/delete/{firstName}/{lastName}")

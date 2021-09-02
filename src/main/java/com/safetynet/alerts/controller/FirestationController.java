@@ -24,7 +24,7 @@ import io.swagger.annotations.Api;
 @RestController
 public class FirestationController {
 	
-	List<Firestation> listFirestations = new ArrayList<Firestation>();
+	public List<Firestation> listFirestations = new ArrayList<Firestation>();
 	
 	// Find
 	@GetMapping("/firestations")

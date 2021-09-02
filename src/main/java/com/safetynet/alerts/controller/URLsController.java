@@ -38,6 +38,7 @@ public class URLsController {
 	List<Citizen> listCitizens = new ArrayList<Citizen>();
 
 	@GetMapping("/firestation")
+	public
 	ResidentRepport findResidentsByFirestation(@RequestParam(value = "stationNumber") String station)
 			throws ParseException {
 		ResidentRepport residentRepport = new ResidentRepport();
