@@ -49,5 +49,12 @@ public class Patient {
 		this.allergies = allergies;
 	}
 	
-
+	public Patient(Citizen citizen) {
+		this.firstName = citizen.getFirstName();
+		this.lastName = citizen.getLastName();
+		this.phone = citizen.getPhone();
+		this.age = citizen.getAge();
+		this.medications = citizen.getMedications();
+		this.allergies = citizen.getAllergies();
+	}
 }

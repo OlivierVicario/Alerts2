@@ -1,12 +1,11 @@
 package com.safetynet.alerts.controller;
 
-
-
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +24,9 @@ import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.model.Root;
 import com.safetynet.alerts.model.output.Child;
 import com.safetynet.alerts.model.output.Citizen;
+import com.safetynet.alerts.model.output.Home;
+import com.safetynet.alerts.model.output.Patient;
+import com.safetynet.alerts.model.output.PersonInfo;
 import com.safetynet.alerts.model.output.Resident;
 import com.safetynet.alerts.model.output.ResidentRepport;;
 
@@ -34,8 +36,9 @@ public class URLsController {
 	List<Firestation> listFirestations = new ArrayList<Firestation>();
 	List<Medicalrecord> listMedicalrecords = new ArrayList<Medicalrecord>();
 	List<Citizen> listCitizens = new ArrayList<Citizen>();
-	
+
 	@GetMapping("/firestation")
+	public
 	ResidentRepport findResidentsByFirestation(@RequestParam(value = "stationNumber") String station)
 			throws ParseException {
 		ResidentRepport residentRepport = new ResidentRepport();
@@ -61,13 +64,13 @@ public class URLsController {
 		ArrayList<Child> children = new ArrayList<Child>();
 		List<Citizen> citizens_1 = listCitizens.subList(0, listCitizens.size());
 		for (Citizen citizen : listCitizens) {
-			if (citizen.getAddress().equals(address) && citizen.getAge()<19) {
+			if (citizen.getAddress().equals(address) && citizen.getAge() < 19) {
 				Child child = new Child();
 				child.setFirstName(citizen.getFirstName());
 				child.setLastName(citizen.getLastName());
 				child.setAge(citizen.getAge());
 				child.setFoyerMembers(new ArrayList<String>());
-				
+
 				for (Citizen foyerMember : citizens_1) {
 					if (foyerMember.getAddress().equals(address)) {
 						if (!foyerMember.getFirstName().equals(child.getFirstName())) {
@@ -77,18 +80,101 @@ public class URLsController {
 				}
 				children.add(child);
 			}
-		}		
+		}
 		return children;
 	}
-	
+
 	@GetMapping("/phoneAlert")
 	ArrayList<String> findPhonesByFireStation(@RequestParam(value = "firestation") String station) {
 		ArrayList<String> phoneNumbers = new ArrayList<String>();
 		for (Citizen citizen : listCitizens) {
-			if(citizen.getStation().equals(station)) phoneNumbers.add(citizen.phone);
+			if (citizen.getStation().equals(station))
+				phoneNumbers.add(citizen.phone);
 		}
 		return phoneNumbers;
 	}
+
+	@GetMapping("/fire")
+	List<Patient> findPatientsByFirestation(@RequestParam(value = "stationNumber") String station)
+			throws ParseException {
+		// ResidentRepport residentRepport = new ResidentRepport();
+		ArrayList<Patient> patients = new ArrayList<Patient>();
+
+		for (Citizen citizen : listCitizens) {
+			if (citizen.getStation().equals(station)) {
+				Patient patient = new Patient(citizen);
+				patients.add(patient);
+			}
+		}
+		return patients;
+	}
+
+	@GetMapping("/flood/stations")
+	List<Home> findHomesByFirestation(@RequestParam(value = "stationNumber") String[] stations)
+			throws ParseException {
+		
+		ArrayList<Home> homes = new ArrayList<Home>();
+
+		for (Firestation firestation : listFirestations) {
+			for (String station : stations) {
+				if (firestation.getStation().equals(station)) {
+					Home home = new Home();
+					home.setAddress(firestation.getAddress());
+					home.setMembers(new ArrayList<Patient>());
+					for (Citizen citizen : listCitizens) {
+						if (citizen.getAddress().equals(home.getAddress())) {
+							Patient patient = new Patient(citizen);
+							home.getMembers().add(patient);
+						}
+					}
+					homes.add(home);
+				}
+			}
+		}
+		return homes;
+	}
+
+	
+	@GetMapping("/personInfo")
+	List<PersonInfo> findPersonInfosByNames(@RequestParam(value = "firstName") String firstName,@RequestParam(value = "lastName") String lastName)
+			throws ParseException {
+
+		ArrayList<PersonInfo> personInfos = new ArrayList<PersonInfo>();
+
+		for (Citizen citizen : listCitizens) {
+			if (citizen.getFirstName().equals(firstName)&&citizen.getLastName().equals(lastName)) {
+				PersonInfo personInfo = new PersonInfo(citizen);
+				personInfos.add(personInfo);
+			}
+		}
+		return personInfos;
+	}
+	
+	
+	@GetMapping("/communityEmail")
+	List<String> findEmailsByCity(@RequestParam(value="city") String city){
+		List<String> emails = new ArrayList<String>();
+		for (Citizen citizen : listCitizens) {
+			if (citizen.getCity().equals(city)) {
+				emails.add(citizen.getEmail());
+			}
+		}
+		return emails;		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@PostConstruct
 	public void loadData() throws JsonParseException, JsonMappingException, IOException, ParseException {
@@ -108,6 +194,7 @@ public class URLsController {
 		listFirestations = root.getFirestations();
 		listPersons = root.getPersons();
 		listMedicalrecords = root.getMedicalrecords();
+		
 		for (Person person : listPersons) {
 			Citizen citizen = new Citizen();
 			citizen.setFirstName(person.getFirstName());
@@ -119,22 +206,26 @@ public class URLsController {
 			citizen.setEmail(person.getEmail());
 			for (Firestation firestation : listFirestations) {
 				if (firestation.getAddress().equals(person.getAddress())) {
-					citizen.setStation(firestation.getStation());	
+					citizen.setStation(firestation.getStation());
 				}
 			}
 			for (Medicalrecord record : listMedicalrecords) {
 				if (record.getFirstName().equals(citizen.getFirstName())
 						&& record.getLastName().equals(citizen.getLastName())) {
 					Date birthDate = new SimpleDateFormat("dd/MM/yyyy").parse(record.getBirthdate());
-					int age = new Date().getYear()-birthDate.getYear();
+					int age = new Date().getYear() - birthDate.getYear();
 					citizen.setAge(age);
-					Date birthday_19 = new Date(birthDate.getYear()+19,birthDate.getMonth(),birthDate.getDay());
-					if(birthday_19.after(new Date())) citizen.setIsAdult(false); else citizen.setIsAdult(true);
+					Date birthday_19 = new Date(birthDate.getYear() + 19, birthDate.getMonth(), birthDate.getDay());
+					if (birthday_19.after(new Date()))
+						citizen.setIsAdult(false);
+					else
+						citizen.setIsAdult(true);
 					citizen.setMedications(record.getMedications());
 					citizen.setAllergies(record.getAllergies());
-					
+
 				}
 			}
 			listCitizens.add(citizen);
+		}
 	}
-}}
+}

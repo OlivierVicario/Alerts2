@@ -10,19 +10,25 @@ import javax.annotation.PostConstruct;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.model.PersonDetail;
 import com.safetynet.alerts.model.Root;
 
+import io.swagger.annotations.Api;
+
+@Api(value = "PersonController", description = "REST APIs related to Person Entity")
 @RestController
 public class PersonController {
 
-	List<Person> listPersons = new ArrayList<Person>();
+	public List<Person> listPersons = new ArrayList<Person>();
 
 	// Find
 	@GetMapping("/persons")
@@ -39,22 +45,17 @@ public class PersonController {
 		}
 		return null;
 	}
-
-	// @RequestMapping(path =
-	// "/person/add/{firstName}/{lastName}/{address}/{city}/{zip}/{phone}/{email}",
-	// method = RequestMethod.GET)
-	@GetMapping("/person/add/{firstName}/{lastName}/{address}/{city}/{zip}/{phone}/{email}")
-	public Person createPerson(@PathVariable String firstName, @PathVariable String lastName,
-			@PathVariable String address, @PathVariable String city, @PathVariable String zip,
-			@PathVariable String phone, @PathVariable String email) {
+	
+	@PostMapping("/person/add")
+	public Person createPerson(@RequestBody PersonDetail personDetail) {
 		Person person = new Person();
-		person.setAddress(address);
-		person.setFirstName(firstName);
-		person.setLastName(lastName);
-		person.setCity(city);
-		person.setZip(zip);
-		person.setPhone(phone);
-		person.setEmail(email);
+		person.setAddress(personDetail.getAdress());
+		person.setFirstName(personDetail.getFirstName());
+		person.setLastName(personDetail.getLastName());
+		person.setCity(personDetail.getCity());
+		person.setZip(personDetail.getZipCode());
+		person.setPhone(personDetail.getPhone());
+		person.setEmail(personDetail.getEmail());
 		listPersons.add(person);
 		return person;
 	}
@@ -63,7 +64,7 @@ public class PersonController {
 	public Person deletePerson(@PathVariable String firstName, @PathVariable String lastName) {
 		System.out.println("appel delete");
 		for (Person person : listPersons) {
-			if (person.firstName.equals(firstName) && person.lastName.equals(lastName)) {
+			if (person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)) {
 				listPersons.remove(person);
 				return person;
 			}

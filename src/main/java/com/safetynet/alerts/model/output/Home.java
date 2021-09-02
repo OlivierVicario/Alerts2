@@ -5,6 +5,7 @@ import java.util.List;
 public class Home {
 	String address;
 	List<Patient> members;
+	
 	public String getAddress() {
 		return address;
 	}
