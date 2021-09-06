@@ -1,0 +1,91 @@
+2021-09-06 09:29:41.870  INFO 26800 --- [main] com.safetynet.alerts.AlertsApplication   : Starting AlertsApplication using Java 16.0.1 on DESKTOP-NOUD0UI with PID 26800 (D:\Documents\Openclassroom-Java\projet 5\Alerts_2\alerts\target\classes started by olvic in D:\Documents\Openclassroom-Java\projet 5\Alerts_2\alerts)
+2021-09-06 09:29:41.872  INFO 26800 --- [main] com.safetynet.alerts.AlertsApplication   : No active profile set, falling back to default profiles: default
+2021-09-06 09:29:42.766  INFO 26800 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-09-06 09:29:42.775  INFO 26800 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-09-06 09:29:42.779  INFO 26800 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.52]
+2021-09-06 09:29:42.854  INFO 26800 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-09-06 09:29:42.854  INFO 26800 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 941 ms
+2021-09-06 09:29:43.227  INFO 26800 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-09-06 09:29:43.429  INFO 26800 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-09-06 09:29:43.429  INFO 26800 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-09-06 09:29:43.442  INFO 26800 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-09-06 09:29:43.464  INFO 26800 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-09-06 09:29:43.679  INFO 26800 --- [main] com.safetynet.alerts.AlertsApplication   : Started AlertsApplication in 2.156 seconds (JVM running for 2.836)
+2021-09-06 09:29:50.021  INFO 26800 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-09-06 09:29:50.021  INFO 26800 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-09-06 09:29:50.022  INFO 26800 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2021-09-06 09:29:50.042  INFO 26800 --- [http-nio-8080-exec-1] c.s.alerts.controller.MainController     : This is INFO
+2021-09-06 09:29:50.042  WARN 26800 --- [http-nio-8080-exec-1] c.s.alerts.controller.MainController     : This is WARN
+2021-09-06 09:29:50.042 ERROR 26800 --- [http-nio-8080-exec-1] c.s.alerts.controller.MainController     : This is ERROR
+2021-09-06 09:41:05.595  INFO 17728 --- [main] com.safetynet.alerts.AlertsApplication   : Starting AlertsApplication using Java 16.0.1 on DESKTOP-NOUD0UI with PID 17728 (D:\Documents\Openclassroom-Java\projet 5\Alerts_2\alerts\target\classes started by olvic in D:\Documents\Openclassroom-Java\projet 5\Alerts_2\alerts)
+2021-09-06 09:41:05.597  INFO 17728 --- [main] com.safetynet.alerts.AlertsApplication   : No active profile set, falling back to default profiles: default
+2021-09-06 09:41:06.499  INFO 17728 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-09-06 09:41:06.509  INFO 17728 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-09-06 09:41:06.509  INFO 17728 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.52]
+2021-09-06 09:41:06.582  INFO 17728 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-09-06 09:41:06.582  INFO 17728 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 938 ms
+2021-09-06 09:41:06.957  INFO 17728 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-09-06 09:41:07.126  WARN 17728 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+2021-09-06 09:41:07.130  INFO 17728 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2021-09-06 09:41:07.140  INFO 17728 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2021-09-06 09:41:07.152 ERROR 17728 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2021-09-06 09:41:26.041  INFO 26800 --- [RMI TCP Connection(22)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2021-09-06 09:41:32.312  INFO 25892 --- [main] com.safetynet.alerts.AlertsApplication   : Starting AlertsApplication using Java 16.0.1 on DESKTOP-NOUD0UI with PID 25892 (D:\Documents\Openclassroom-Java\projet 5\Alerts_2\alerts\target\classes started by olvic in D:\Documents\Openclassroom-Java\projet 5\Alerts_2\alerts)
+2021-09-06 09:41:32.314  INFO 25892 --- [main] com.safetynet.alerts.AlertsApplication   : No active profile set, falling back to default profiles: default
+2021-09-06 09:41:33.242  INFO 25892 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-09-06 09:41:33.251  INFO 25892 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-09-06 09:41:33.251  INFO 25892 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.52]
+2021-09-06 09:41:33.325  INFO 25892 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-09-06 09:41:33.325  INFO 25892 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 965 ms
+2021-09-06 09:41:33.692  INFO 25892 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-09-06 09:41:33.893  INFO 25892 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-09-06 09:41:33.894  INFO 25892 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-09-06 09:41:33.907  INFO 25892 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-09-06 09:41:33.931  INFO 25892 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-09-06 09:41:34.142  INFO 25892 --- [main] com.safetynet.alerts.AlertsApplication   : Started AlertsApplication in 2.171 seconds (JVM running for 2.857)
+2021-09-06 09:41:51.680  INFO 25892 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-09-06 09:41:51.681  INFO 25892 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-09-06 09:41:51.681  INFO 25892 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2021-09-06 09:41:51.700  INFO 25892 --- [http-nio-8080-exec-1] c.s.alerts.controller.MainController     : This is INFO
+2021-09-06 09:41:51.700  WARN 25892 --- [http-nio-8080-exec-1] c.s.alerts.controller.MainController     : This is WARN
+2021-09-06 09:41:51.701 ERROR 25892 --- [http-nio-8080-exec-1] c.s.alerts.controller.MainController     : This is ERROR
+2021-09-06 09:42:46.825  INFO 25892 --- [http-nio-8080-exec-3] c.s.alerts.controller.MainController     : This is INFO
+2021-09-06 09:42:46.825  WARN 25892 --- [http-nio-8080-exec-3] c.s.alerts.controller.MainController     : This is WARN
+2021-09-06 09:42:46.825 ERROR 25892 --- [http-nio-8080-exec-3] c.s.alerts.controller.MainController     : This is ERROR
+2021-09-06 09:43:16.339  INFO 25892 --- [RMI TCP Connection(11)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2021-09-06 09:46:45.091  INFO 20656 --- [main] com.safetynet.alerts.AlertsApplication   : Starting AlertsApplication using Java 16.0.1 on DESKTOP-NOUD0UI with PID 20656 (D:\Documents\Openclassroom-Java\projet 5\Alerts_2\alerts\target\classes started by olvic in D:\Documents\Openclassroom-Java\projet 5\Alerts_2\alerts)
+2021-09-06 09:46:45.093  INFO 20656 --- [main] com.safetynet.alerts.AlertsApplication   : No active profile set, falling back to default profiles: default
+2021-09-06 09:46:46.031  INFO 20656 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-09-06 09:46:46.040  INFO 20656 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-09-06 09:46:46.040  INFO 20656 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.52]
+2021-09-06 09:46:46.121  INFO 20656 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-09-06 09:46:46.121  INFO 20656 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 981 ms
+2021-09-06 09:46:46.532  INFO 20656 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-09-06 09:46:46.745  INFO 20656 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-09-06 09:46:46.746  INFO 20656 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-09-06 09:46:46.761  INFO 20656 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-09-06 09:46:46.788  INFO 20656 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-09-06 09:46:47.027  INFO 20656 --- [main] com.safetynet.alerts.AlertsApplication   : Started AlertsApplication in 2.274 seconds (JVM running for 2.928)
+2021-09-06 09:46:55.656  INFO 20656 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-09-06 09:46:55.656  INFO 20656 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-09-06 09:46:55.657  INFO 20656 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2021-09-06 09:46:55.676  INFO 20656 --- [http-nio-8080-exec-1] c.s.alerts.controller.MainController     : This is INFO
+2021-09-06 09:46:55.677  WARN 20656 --- [http-nio-8080-exec-1] c.s.alerts.controller.MainController     : This is WARN
+2021-09-06 09:46:55.677 ERROR 20656 --- [http-nio-8080-exec-1] c.s.alerts.controller.MainController     : This is ERROR
+2021-09-06 09:47:06.615  INFO 20656 --- [http-nio-8080-exec-2] c.s.alerts.controller.PersonController   : begin findPersons
+2021-09-06 09:47:06.616  INFO 20656 --- [http-nio-8080-exec-2] c.s.alerts.controller.PersonController   : end findPersons

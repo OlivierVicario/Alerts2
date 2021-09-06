@@ -52,7 +52,6 @@ public class MedicalrecordController {
 	@PutMapping("/medicalrecord/update")
 	public void updatemedicalrecord(@RequestBody MedicalrecordDetail medicalrecordDetail) {
 		for (Medicalrecord medicalrecord : listMedicalrecords) {
-			System.out.print(false);
 			if (medicalrecord.getFirstName().equals(medicalrecordDetail.getFirstName()) && medicalrecord.getLastName().equals(medicalrecordDetail.getLastName())) {
 				medicalrecord.setBirthdate(medicalrecordDetail.getBirthdate());
 				medicalrecord.setMedications(medicalrecordDetail.getMedications());
@@ -65,7 +64,6 @@ public class MedicalrecordController {
 
 	@DeleteMapping("/medicalrecord/delete/{firstName}/{lastName}")
 	public Medicalrecord deletemedicalrecord(@PathVariable String firstName, @PathVariable String lastName) {
-		System.out.println("appel delete");
 		for (Medicalrecord medicalrecord : listMedicalrecords) {
 			if (medicalrecord.firstName.equals(firstName) && medicalrecord.lastName.equals(lastName)) {
 				listMedicalrecords.remove(medicalrecord);

@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,13 +29,16 @@ import io.swagger.annotations.Api;
 @Api(value = "PersonController", description = "REST APIs related to Person Entity")
 @RestController
 public class PersonController {
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(PersonController.class);
 	public List<Person> listPersons = new ArrayList<Person>();
 
 	// Find
 	@GetMapping("/persons")
 	List<Person> findAllPersonnes() {
+		LOGGER.info("begin findPersons");
+		LOGGER.info("end findPersons");
 		return listPersons;
+		
 	}
 
 	@GetMapping("/person/{firstName}")
