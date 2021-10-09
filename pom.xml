@@ -14,19 +14,37 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>alerts</name>
 	<description>Spring Boot back-end</description>
+
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
 		<dependency>
@@ -45,18 +63,143 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
+
+
+		<!-- *****************ajouts pour reporting***************************************************** -->
+		<dependency>
+			<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+			<version>0.8.5</version>
+			<type>maven-plugin</type>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-assembly-plugin</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+
+		<!-- *****************fin ajouts pour reporting***************************************************** -->
+
 	</dependencies>
 
 	<build>
+		<!-- ***************** ajouts pour reporting***************************************************** -->
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.6</version>
+
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<!-- *****************fin ajouts pour reporting***************************************************** -->
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<!-- *****************ajouts pour reporting***************************************************** -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.21.0</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.junit.platform</groupId>
+						<artifactId>junit-platform-surefire-provider</artifactId>
+						<version>1.2.0</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<excludes>
+						<exclude>**/*IT.java</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<id>integration-test</id>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<phase>integration-test</phase>
+						<configuration>
+							<excludes>
+								<exclude>none</exclude>
+							</excludes>
+							<includes>
+								<include>**/*IT.java</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.5</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>jacoco-report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- *****************fin ajouts pour reporting***************************************************** -->
+<plugin>
+  <groupId>com.github.spotbugs</groupId>
+  <artifactId>spotbugs-maven-plugin</artifactId>
+  <version>4.4.1</version>
+  <dependencies>
+    <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
+    <dependency>
+      <groupId>com.github.spotbugs</groupId>
+      <artifactId>spotbugs</artifactId>
+      <version>4.4.1</version>
+    </dependency>
+  </dependencies>
+</plugin>
+
 		</plugins>
 	</build>
+	<!-- ***************** ajouts pour reporting***************************************************** -->
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<reportPlugins>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>findbugs-maven-plugin</artifactId>
+						</plugin>
+					</reportPlugins>
+					<locales>fr</locales>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+	<distributionManagement>
+		<site>
+			<id>site-projet</id>
+			<url>scp://localhost/tmp/</url>
+		</site>
+	</distributionManagement>
 
+	<!-- *****************fin ajouts pour reporting***************************************************** -->
 </project>

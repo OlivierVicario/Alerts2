@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +25,7 @@ import io.swagger.annotations.Api;
 @Api(value = "FirestationController", description = "REST APIs related to Firestation Entity")
 @RestController
 public class FirestationController {
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(FirestationController.class);
 	public List<Firestation> listFirestations = new ArrayList<Firestation>();
 	
 	// Find
