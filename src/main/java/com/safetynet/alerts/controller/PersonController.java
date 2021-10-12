@@ -1,8 +1,6 @@
 package com.safetynet.alerts.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +8,7 @@ import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,10 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.model.PersonDetail;
-import com.safetynet.alerts.model.Root;
+import com.safetynet.alerts.service.PersonneService;
 
 import io.swagger.annotations.Api;
 
@@ -32,6 +30,9 @@ import io.swagger.annotations.Api;
 public class PersonController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PersonController.class);
 	public List<Person> listPersons = new ArrayList<Person>();
+
+	@Autowired
+	PersonneService personneService;
 
 	// Find
 	@GetMapping("/persons")
@@ -57,8 +58,7 @@ public class PersonController {
 			}
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
-		}
-		finally {
+		} finally {
 			LOGGER.info("end findPerson by first name");
 		}
 		return null;
@@ -80,8 +80,7 @@ public class PersonController {
 			return person;
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
-		}finally
-		{
+		} finally {
 			LOGGER.info("end createPerson");
 		}
 		return null;
@@ -100,8 +99,7 @@ public class PersonController {
 			}
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
-		}finally
-		{
+		} finally {
 			LOGGER.info("end deletePerson");
 		}
 		return null;
@@ -111,7 +109,7 @@ public class PersonController {
 	public Person updatePerson(@PathVariable String firstName, @PathVariable String lastName,
 			@PathVariable String address, @PathVariable String city, @PathVariable String zip,
 			@PathVariable String phone, @PathVariable String email) {
-		
+
 		try {
 			LOGGER.info("begin updatePerson");
 			for (Person person : listPersons) {
@@ -126,30 +124,18 @@ public class PersonController {
 			}
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
-		}finally
-		{
+		} finally {
 			LOGGER.info("end updatePerson");
 		}
 		return null;
 	}
 
 	@PostConstruct
-	public void loadData() { // throws JsonParseException, JsonMappingException, IOException {
+	public void loadData() {
 
-		ObjectMapper mapper = new ObjectMapper();
-
-		Root root = null;
 		try {
-			LOGGER.info("begin loadData");
-			// lecture fichier local
-			 root = mapper.readValue(new File("data.json"), Root.class);
-			 
-			 //lecture fichier distant
-
-			/*URL distantInputDataURL = new URL(
-					"https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/DA+Java+EN/P5+/data.json");
-			root = mapper.readValue(distantInputDataURL.openStream(), Root.class);*/
-			listPersons = root.getPersons();
+			LOGGER.info("begin PersonController.loadData");
+			listPersons = personneService.loadPersons();
 
 		} catch (JsonParseException e) {
 			LOGGER.error(e.getMessage());
@@ -157,11 +143,10 @@ public class PersonController {
 			LOGGER.error(e.getMessage());
 		} catch (IOException e) {
 			LOGGER.error(e.getMessage());
-		}finally {
-			LOGGER.info("end loadData");
+		} finally {
+			LOGGER.info("end PersonController.loadData");
 		}
 
-		
 	}
 
 }

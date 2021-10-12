@@ -1,12 +1,14 @@
 package com.safetynet.alerts.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,18 +19,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.model.Medicalrecord;
 import com.safetynet.alerts.model.MedicalrecordDetail;
-import com.safetynet.alerts.model.Root;
+import com.safetynet.alerts.service.MedicalrecordService;
 
 import io.swagger.annotations.Api;
 
 @Api(value = "MedicalrecordController", description = "REST APIs related to Medicalrecord Entity")
 @RestController
 public class MedicalrecordController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(PersonController.class);
 	public List<Medicalrecord> listMedicalrecords = new ArrayList<Medicalrecord>();
-	
+	@Autowired
+	MedicalrecordService medicalrecordService;
 	// Find
 	@GetMapping("/medicalrecords")
 	List<Medicalrecord> findAllMedicalrecords() {
@@ -76,21 +79,20 @@ public class MedicalrecordController {
 	
 	
 	@PostConstruct
-	public void loadData() throws JsonParseException, JsonMappingException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
+	public void loadData() {
+		try {
+			LOGGER.info("begin MedicalrecordController.loadData");
+			listMedicalrecords = medicalrecordService.loadMedicalrecords();
 
-		// lecture fichier local
-		Root root = mapper.readValue(new File("data.json"), Root.class);
-
-		// lecture fichier distant
-		/*
-		 * URL distantInputDataURL = new URL(
-		 * "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/DA+Java+EN/P5+/data.json"
-		 * ); Root root = mapper.readValue(distantInputDataURL.openStream(),
-		 * Root.class);
-		 */
-
-		listMedicalrecords = root.getMedicalrecords();
+		} catch (JsonParseException e) {
+			LOGGER.error(e.getMessage());
+		} catch (JsonMappingException e) {
+			LOGGER.error(e.getMessage());
+		} catch (IOException e) {
+			LOGGER.error(e.getMessage());
+		} finally {
+			LOGGER.info("end MedicalrecordController.loadData");
+		}
 	}
 
 }
