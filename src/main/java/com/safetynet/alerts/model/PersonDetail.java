@@ -22,6 +22,9 @@ public class PersonDetail {
 		this.phone = phone;
 		this.email = email;
 	}
+	public PersonDetail() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getFirstName() {
 		return firstName;
 	}

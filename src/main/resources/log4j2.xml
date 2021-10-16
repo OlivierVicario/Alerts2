@@ -1,0 +1,62 @@
+
+      <Configuration status="WARN">
+
+       <Appenders>
+          <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout>
+        <Pattern>%d %-5p  %m%n</Pattern>
+      </PatternLayout>
+      <ThresholdFilter level="DEBUG"/>
+    </Console>
+    
+    <RollingFile name="RollingDebugLogFile" fileName="logs/app-debug.log" filePattern="logs/$${date:yyyy-MM}/app-debug-%d{MM-dd-yyyy}-%i.log.gz">
+      <PatternLayout>
+        <Pattern>%d %-5p  %m%n</Pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy />
+        <SizeBasedTriggeringPolicy size="20MB"/>
+      </Policies>
+      <ThresholdFilter level="DEBUG"/>
+    </RollingFile>
+  
+    <RollingFile name="RollingErrorLogFile" fileName="logs/app-error.log" filePattern="logs/$${date:yyyy-MM}/app-error-%d{MM-dd-yyyy}-%i.log.gz">
+      <PatternLayout>
+        <Pattern>%d %-5p  %m%n</Pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy />
+        <SizeBasedTriggeringPolicy size="20MB"/>
+      </Policies>
+      <ThresholdFilter level="ERROR"/>
+    </RollingFile>
+  
+    <RollingFile name="RollingInfoLogFile" fileName="logs/app-info.log" filePattern="logs/$${date:yyyy-MM}/app-info-%d{MM-dd-yyyy}-%i.log.gz">
+      <PatternLayout>
+        <Pattern>%d %-5p  %m%n</Pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy />
+        <SizeBasedTriggeringPolicy size="20MB"/>
+      </Policies>
+      <ThresholdFilter level="INFO"/>
+    </RollingFile>
+    
+  </Appenders>
+
+  <Loggers>
+    <Logger name="testLogger" level="DEBUG" additivity="false">
+        <AppenderRef ref = "Console" />
+        <AppenderRef ref="RollingErrorLogFile" />
+        <AppenderRef ref="RollingInfoLogFile" />
+        <AppenderRef ref="RollingDebugLogFile" />
+    </Logger>
+    <Root level="DEBUG">
+      <AppenderRef ref = "Console" />
+      <AppenderRef ref="RollingErrorLogFile" />
+      <AppenderRef ref="RollingInfoLogFile" />
+      <AppenderRef ref="RollingDebugLogFile" />
+    </Root>
+    
+  </Loggers>
+</Configuration>

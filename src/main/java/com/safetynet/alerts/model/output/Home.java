@@ -1,5 +1,6 @@
 package com.safetynet.alerts.model.output;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Home {
@@ -13,6 +14,7 @@ public class Home {
 		this.address = address;
 	}
 	public List<Patient> getMembers() {
+		//return Collections.unmodifiableList(members);
 		return members;
 	}
 	public void setMembers(List<Patient> members) {

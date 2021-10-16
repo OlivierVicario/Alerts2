@@ -1,12 +1,14 @@
 package com.safetynet.alerts.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,58 +19,88 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.model.PersonDetail;
-import com.safetynet.alerts.model.Root;
+import com.safetynet.alerts.service.PersonService;
 
 import io.swagger.annotations.Api;
 
 @Api(value = "PersonController", description = "REST APIs related to Person Entity")
 @RestController
 public class PersonController {
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(PersonController.class);
 	public List<Person> listPersons = new ArrayList<Person>();
+
+	@Autowired
+	PersonService personneService;
 
 	// Find
 	@GetMapping("/persons")
-	List<Person> findAllPersonnes() {
+	public	List<Person> findAllPersons() {
+		try {
+			LOGGER.info("begin findPersons");
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+		} finally {
+			LOGGER.info("end findPersons");
+		}
 		return listPersons;
 	}
 
 	@GetMapping("/person/{firstName}")
-	Person findPersonneByFirstName(@PathVariable String firstName) {
-		for (Person person : listPersons) {
-			if (person.getFirstName().equals(firstName)) {
-				return person;
+	public	Person findPersonneByFirstName(@PathVariable String firstName) {
+		try {
+			LOGGER.info("begin findPerson by first name");
+			for (Person person : listPersons) {
+				if (person.getFirstName().equals(firstName)) {
+					return person;
+				}
 			}
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+		} finally {
+			LOGGER.info("end findPerson by first name");
 		}
 		return null;
 	}
-	
+
 	@PostMapping("/person/add")
 	public Person createPerson(@RequestBody PersonDetail personDetail) {
-		Person person = new Person();
-		person.setAddress(personDetail.getAdress());
-		person.setFirstName(personDetail.getFirstName());
-		person.setLastName(personDetail.getLastName());
-		person.setCity(personDetail.getCity());
-		person.setZip(personDetail.getZipCode());
-		person.setPhone(personDetail.getPhone());
-		person.setEmail(personDetail.getEmail());
-		listPersons.add(person);
-		return person;
+		try {
+			LOGGER.info("begin createPerson");
+			Person person = new Person();
+			person.setAddress(personDetail.getAdress());
+			person.setFirstName(personDetail.getFirstName());
+			person.setLastName(personDetail.getLastName());
+			person.setCity(personDetail.getCity());
+			person.setZip(personDetail.getZipCode());
+			person.setPhone(personDetail.getPhone());
+			person.setEmail(personDetail.getEmail());
+			listPersons.add(person);
+			return person;
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+		} finally {
+			LOGGER.info("end createPerson");
+		}
+		return null;
 	}
 
 	@DeleteMapping("/person/delete/{firstName}/{lastName}")
 	public Person deletePerson(@PathVariable String firstName, @PathVariable String lastName) {
-		System.out.println("appel delete");
-		for (Person person : listPersons) {
-			if (person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)) {
-				listPersons.remove(person);
-				return person;
-			}
 
+		try {
+			LOGGER.info("begin deletePerson");
+			for (Person person : listPersons) {
+				if (person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)) {
+					listPersons.remove(person);
+					return person;
+				}
+			}
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+		} finally {
+			LOGGER.info("end deletePerson");
 		}
 		return null;
 	}
@@ -77,35 +109,44 @@ public class PersonController {
 	public Person updatePerson(@PathVariable String firstName, @PathVariable String lastName,
 			@PathVariable String address, @PathVariable String city, @PathVariable String zip,
 			@PathVariable String phone, @PathVariable String email) {
-		for (Person person : listPersons) {
-			if (person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)) {
-				person.setAddress(address);
-				person.setCity(city);
-				person.setZip(zip);
-				person.setPhone(phone);
-				person.setEmail(email);
-				return person;
+
+		try {
+			LOGGER.info("begin updatePerson");
+			for (Person person : listPersons) {
+				if (person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)) {
+					person.setAddress(address);
+					person.setCity(city);
+					person.setZip(zip);
+					person.setPhone(phone);
+					person.setEmail(email);
+					return person;
+				}
 			}
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+		} finally {
+			LOGGER.info("end updatePerson");
 		}
 		return null;
 	}
 
 	@PostConstruct
-	public void loadData() throws JsonParseException, JsonMappingException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
+	public void loadData() {
 
-		// lecture fichier local
-		Root root = mapper.readValue(new File("data.json"), Root.class);
+		try {
+			LOGGER.info("begin PersonController.loadData");
+			listPersons = personneService.loadPersons();
 
-		// lecture fichier distant
-		/*
-		 * URL distantInputDataURL = new URL(
-		 * "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/DA+Java+EN/P5+/data.json"
-		 * ); Root root = mapper.readValue(distantInputDataURL.openStream(),
-		 * Root.class);
-		 */
+		} catch (JsonParseException e) {
+			LOGGER.error(e.getMessage());
+		} catch (JsonMappingException e) {
+			LOGGER.error(e.getMessage());
+		} catch (IOException e) {
+			LOGGER.error(e.getMessage());
+		} finally {
+			LOGGER.info("end PersonController.loadData");
+		}
 
-		listPersons = root.getPersons();
 	}
 
 }
