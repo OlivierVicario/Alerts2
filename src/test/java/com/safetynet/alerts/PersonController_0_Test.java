@@ -1,7 +1,7 @@
 package com.safetynet.alerts;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -21,12 +21,13 @@ import com.safetynet.alerts.model.Person;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PersonControllerTest {
+public class PersonController_0_Test {
 	@Autowired
 	private MockMvc mockMvc;
 
 	@Autowired
 	PersonController personController;
+	
 
 	@Test
 	public void shouldReturnPersons() throws Exception {

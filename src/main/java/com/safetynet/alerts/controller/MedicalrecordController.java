@@ -40,39 +40,61 @@ public class MedicalrecordController {
 	
 	@PostMapping("/medicalrecord/add")
 	public Medicalrecord createmedicalrecord(@RequestBody MedicalrecordDetail medicalrecordDetail) {
-		Medicalrecord medicalrecord = new Medicalrecord();
-		
-		medicalrecord.setFirstName(medicalrecordDetail.getFirstName());
-		medicalrecord.setLastName(medicalrecordDetail.getLastName());
-		medicalrecord.setBirthdate(medicalrecordDetail.getBirthdate());
-		medicalrecord.setMedications(medicalrecordDetail.getMedications());
-		medicalrecord.setAllergies(medicalrecordDetail.getAllergies());
-		listMedicalrecords.add(medicalrecord);
-		return medicalrecord;
+		Medicalrecord medicalrecord = null;
+		try {
+			LOGGER.info("begin createMedicalrecord");
+			medicalrecord = new Medicalrecord();			
+			medicalrecord.setFirstName(medicalrecordDetail.getFirstName());
+			medicalrecord.setLastName(medicalrecordDetail.getLastName());
+			medicalrecord.setBirthdate(medicalrecordDetail.getBirthdate());
+			medicalrecord.setMedications(medicalrecordDetail.getMedications());
+			medicalrecord.setAllergies(medicalrecordDetail.getAllergies());
+			listMedicalrecords.add(medicalrecord);
+			return medicalrecord;
+		} catch (Exception e) {
+			LOGGER.error( e.getMessage());
+		}finally {
+			LOGGER.info("end createMedicalrecord");
+		}
+		return null;
 	}
 	
 	
 	@PutMapping("/medicalrecord/update")
 	public void updatemedicalrecord(@RequestBody MedicalrecordDetail medicalrecordDetail) {
-		for (Medicalrecord medicalrecord : listMedicalrecords) {
-			if (medicalrecord.getFirstName().equals(medicalrecordDetail.getFirstName()) && medicalrecord.getLastName().equals(medicalrecordDetail.getLastName())) {
-				medicalrecord.setBirthdate(medicalrecordDetail.getBirthdate());
-				medicalrecord.setMedications(medicalrecordDetail.getMedications());
-				medicalrecord.setAllergies(medicalrecordDetail.getAllergies());
-				
+		try {
+			LOGGER.info("begin updateMedicalrecord");
+			for (Medicalrecord medicalrecord : listMedicalrecords) {
+				if (medicalrecord.getFirstName().equals(medicalrecordDetail.getFirstName()) && medicalrecord.getLastName().equals(medicalrecordDetail.getLastName())) {
+					medicalrecord.setBirthdate(medicalrecordDetail.getBirthdate());
+					medicalrecord.setMedications(medicalrecordDetail.getMedications());
+					medicalrecord.setAllergies(medicalrecordDetail.getAllergies());
+					
+				}
 			}
+		} catch (Exception e) {
+			LOGGER.error( e.getMessage());
+		}finally {
+			LOGGER.info("end updateMedicalrecord");
 		}
 		
 	}
 
 	@DeleteMapping("/medicalrecord/delete/{firstName}/{lastName}")
 	public Medicalrecord deletemedicalrecord(@PathVariable String firstName, @PathVariable String lastName) {
-		for (Medicalrecord medicalrecord : listMedicalrecords) {
-			if (medicalrecord.firstName.equals(firstName) && medicalrecord.lastName.equals(lastName)) {
-				listMedicalrecords.remove(medicalrecord);
-				return medicalrecord;
-			}
+		try {
+			LOGGER.info("begin deleteMedicalrecord");
+			for (Medicalrecord medicalrecord : listMedicalrecords) {
+				if (medicalrecord.firstName.equals(firstName) && medicalrecord.lastName.equals(lastName)) {
+					listMedicalrecords.remove(medicalrecord);
+					return medicalrecord;
+				}
 
+			}
+		} catch (Exception e) {
+			LOGGER.error( e.getMessage());
+		}finally {
+			LOGGER.info("end deleteMedicalrecord");
 		}
 		return null;
 	}

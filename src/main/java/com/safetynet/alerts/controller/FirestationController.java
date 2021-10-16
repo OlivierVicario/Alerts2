@@ -41,34 +41,54 @@ public class FirestationController {
 
 	@GetMapping("/firestation/add/{address}/{station}")
 	public Firestation createfirestation(@PathVariable String address, @PathVariable String station) {
-		Firestation firestation = new Firestation();
-		firestation.setAddress(address);
-		firestation.setStation(station);
-		listFirestations.add(firestation);
-		return firestation;
+		try {
+			LOGGER.info("begin createFirestation");
+			Firestation firestation = new Firestation();
+			firestation.setAddress(address);
+			firestation.setStation(station);
+			listFirestations.add(firestation);
+			return firestation;
+		 } catch (Exception e) {
+			LOGGER.error( e.getMessage());
+		}finally {
+			LOGGER.info("end createFirestation");
+		}
+		return null;
 	}
 	
 	
 	@DeleteMapping("/firestation/delete/address/{address}")
 	public Firestation deleteFirestationByAddress(@PathVariable String address) {
-		for (Firestation firestation : listFirestations) {
-			if (firestation.address.equals(address)) {
-				listFirestations.remove(firestation);
-				return firestation;
+		try {
+			LOGGER.info("end deleteFirestation");
+			for (Firestation firestation : listFirestations) {
+				if (firestation.address.equals(address)) {
+					listFirestations.remove(firestation);
+					return firestation;
+				}
 			}
-
+		} catch (Exception e) {
+			LOGGER.error( e.getMessage());
+		}finally {
+			LOGGER.info("end deleteFirestation");
 		}
 		return null;
 	}
 	
 	@DeleteMapping("/firestation/delete/station/{station}")
 	public Firestation deleteFirestationByStation(@PathVariable String station) {
-		for (Firestation firestation : listFirestations) {
-			if (firestation.station.equals(station)) {
-				listFirestations.remove(firestation);
-				return firestation;
+		try {
+			LOGGER.info("begin deleteFirestation");
+			for (Firestation firestation : listFirestations) {
+				if (firestation.station.equals(station)) {
+					listFirestations.remove(firestation);
+					return firestation;
+				}
 			}
-
+		} catch (Exception e) {
+			LOGGER.error( e.getMessage());
+		}finally {
+			LOGGER.info("end deleteFirestation");
 		}
 		return null;
 	}
@@ -77,11 +97,18 @@ public class FirestationController {
 	@PutMapping("/firestation/update/{address}/{station}")
 	public Firestation updateFirestation(@PathVariable String address, @PathVariable String station)
 	{
-		for (Firestation firestation : listFirestations) {
-			if (firestation.address.equals(address)) {
-				firestation.setStation(station);
-				return firestation;
+		try {
+			LOGGER.info("begin updateFirestation");
+			for (Firestation firestation : listFirestations) {
+				if (firestation.address.equals(address)) {
+					firestation.setStation(station);
+					return firestation;
+				}
 			}
+		} catch (Exception e) {
+			LOGGER.error( e.getMessage());
+		}finally {
+			LOGGER.info("end updateFirestation");
 		}
 		return null;
 		

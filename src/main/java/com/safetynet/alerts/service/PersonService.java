@@ -13,7 +13,7 @@ import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.model.Root;
 
 @Service
-public class PersonneService {
+public class PersonService {
 	
 	public List<Person> loadPersons() throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();

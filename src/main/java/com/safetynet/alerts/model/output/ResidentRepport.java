@@ -1,6 +1,7 @@
 package com.safetynet.alerts.model.output;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ResidentRepport {
 	ArrayList<Resident> listResidents;

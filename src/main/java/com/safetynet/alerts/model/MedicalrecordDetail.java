@@ -1,5 +1,6 @@
 package com.safetynet.alerts.model;
 
+import java.util.Collections;
 import java.util.List;
 
 public class MedicalrecordDetail {
@@ -39,13 +40,13 @@ public class MedicalrecordDetail {
 		this.birthdate = birthdate;
 	}
 	public List<String> getMedications() {
-		return medications;
+		return Collections.unmodifiableList(medications);
 	}
 	public void setMedications(List<String> medications) {
 		this.medications = medications;
 	}
 	public List<String> getAllergies() {
-		return allergies;
+		return Collections.unmodifiableList(allergies);
 	}
 	public void setAllergies(List<String> allergies) {
 		this.allergies = allergies;

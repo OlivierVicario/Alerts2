@@ -21,7 +21,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.model.PersonDetail;
-import com.safetynet.alerts.service.PersonneService;
+import com.safetynet.alerts.service.PersonService;
 
 import io.swagger.annotations.Api;
 
@@ -32,11 +32,11 @@ public class PersonController {
 	public List<Person> listPersons = new ArrayList<Person>();
 
 	@Autowired
-	PersonneService personneService;
+	PersonService personneService;
 
 	// Find
 	@GetMapping("/persons")
-	List<Person> findAllPersonnes() {
+	public	List<Person> findAllPersons() {
 		try {
 			LOGGER.info("begin findPersons");
 		} catch (Exception e) {
@@ -48,7 +48,7 @@ public class PersonController {
 	}
 
 	@GetMapping("/person/{firstName}")
-	Person findPersonneByFirstName(@PathVariable String firstName) {
+	public	Person findPersonneByFirstName(@PathVariable String firstName) {
 		try {
 			LOGGER.info("begin findPerson by first name");
 			for (Person person : listPersons) {

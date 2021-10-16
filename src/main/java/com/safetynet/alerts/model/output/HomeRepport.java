@@ -1,5 +1,6 @@
 package com.safetynet.alerts.model.output;
 
+import java.util.Collections;
 import java.util.List;
 
 public class HomeRepport {
@@ -13,7 +14,7 @@ public class HomeRepport {
 		this.firestation = firestation;
 	}
 	public List<Home> getListHomes() {
-		return listHomes;
+		return Collections.unmodifiableList(listHomes);
 	}
 	public void setListHomes(List<Home> listHomes) {
 		this.listHomes = listHomes;
