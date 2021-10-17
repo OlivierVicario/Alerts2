@@ -34,6 +34,7 @@ public class URLsController {
 	List<Person> listPersons = new ArrayList<Person>();
 	List<Firestation> listFirestations = new ArrayList<Firestation>();
 	List<Medicalrecord> listMedicalrecords = new ArrayList<Medicalrecord>();
+	//synthese des infos
 	List<Citizen> listCitizens = new ArrayList<Citizen>();
 
 	@GetMapping("/firestation")
@@ -162,19 +163,6 @@ public class URLsController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@PostConstruct
 	public void loadData() throws JsonParseException, JsonMappingException, IOException, ParseException {
 		ObjectMapper mapper = new ObjectMapper();
@@ -194,6 +182,7 @@ public class URLsController {
 		listPersons = root.getPersons();
 		listMedicalrecords = root.getMedicalrecords();
 		
+		// creation de la synthese des infos dans citizens
 		for (Person person : listPersons) {
 			Citizen citizen = new Citizen();
 			citizen.setFirstName(person.getFirstName());

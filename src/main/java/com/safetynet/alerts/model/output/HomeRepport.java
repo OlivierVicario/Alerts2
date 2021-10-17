@@ -2,7 +2,7 @@ package com.safetynet.alerts.model.output;
 
 import java.util.Collections;
 import java.util.List;
-
+//etat de sortie
 public class HomeRepport {
 	String firestation;
 	List<Home> listHomes;

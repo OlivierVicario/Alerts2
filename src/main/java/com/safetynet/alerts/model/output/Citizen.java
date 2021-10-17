@@ -2,7 +2,8 @@ package com.safetynet.alerts.model.output;
 
 import java.time.LocalDate;
 import java.util.List;
-
+//Classe de synthese des informations disponibles en input. 
+//les classes intermediaires permettant d'etablir les etats de sorties sont generes à partir de cette classe
 public class Citizen {
 	public String firstName;
 	public String lastName;

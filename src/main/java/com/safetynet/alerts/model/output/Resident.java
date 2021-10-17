@@ -1,5 +1,5 @@
 package com.safetynet.alerts.model.output;
-
+//classe intermediaire
 public class Resident {
 	String firstName;
 	String lastName;

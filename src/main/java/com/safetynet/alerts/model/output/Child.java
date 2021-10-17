@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-
+//classe intermediaire
 public class Child {
 	String firstName;
 	String lastName;
