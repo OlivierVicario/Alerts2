@@ -2,7 +2,7 @@ package com.safetynet.alerts.model.output;
 
 import java.util.Collections;
 import java.util.List;
-
+//classe intermediaire
 public class Home {
 	String address;
 	List<Patient> members;

@@ -32,7 +32,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringBootTest
 @AutoConfigureMockMvc
 public class PersonController_1_Test {
-
+	//variante test avec fourniture infos mock dans le code
 	@Autowired
 	private MockMvc mockMvc;
 
