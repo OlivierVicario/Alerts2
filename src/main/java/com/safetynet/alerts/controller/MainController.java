@@ -20,7 +20,6 @@ public class MainController {
         String contextPath = request.getContextPath();
         String host = request.getServerName();
  
-        // Spring Boot >= 2.0.0.M7
         String endpointBasePath = "/actuator";
      
         StringBuilder sb = new StringBuilder();
@@ -28,7 +27,6 @@ public class MainController {
         sb.append("<h2>Spring Boot Actuator</h2>");
         sb.append("<ul>");
  
-        // http://localhost:8090/actuator
         String url = "http://" + host + ":8090" + contextPath + endpointBasePath;
  
         sb.append("<li><a href='" + url + "'>" + url + "</a></li>");

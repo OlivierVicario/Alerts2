@@ -2,7 +2,7 @@ package com.safetynet.alerts.model.output;
 
 import java.util.ArrayList;
 import java.util.Collections;
-//etat de sortie
+
 public class ResidentRepport {
 	ArrayList<Resident> listResidents;
 	public int adultsNb;

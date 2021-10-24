@@ -1,10 +1,6 @@
 package com.safetynet.alerts.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.safetynet.alerts.model.Medicalrecord;
 import com.safetynet.alerts.model.MedicalrecordDetail;
 import com.safetynet.alerts.service.MedicalrecordService;
@@ -29,28 +23,20 @@ import io.swagger.annotations.Api;
 @RestController
 public class MedicalrecordController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PersonController.class);
-	public List<Medicalrecord> listMedicalrecords = new ArrayList<Medicalrecord>();
+	
 	@Autowired
-	MedicalrecordService medicalrecordService;
-	// Find
+	public MedicalrecordService medicalrecordService;
+
 	@GetMapping("/medicalrecords")
 	List<Medicalrecord> findAllMedicalrecords() {
-		return listMedicalrecords;
+		return medicalrecordService.listMedicalrecords;
 	}
 	
 	@PostMapping("/medicalrecord/add")
 	public Medicalrecord createmedicalrecord(@RequestBody MedicalrecordDetail medicalrecordDetail) {
-		Medicalrecord medicalrecord = null;
 		try {
 			LOGGER.info("begin createMedicalrecord");
-			medicalrecord = new Medicalrecord();			
-			medicalrecord.setFirstName(medicalrecordDetail.getFirstName());
-			medicalrecord.setLastName(medicalrecordDetail.getLastName());
-			medicalrecord.setBirthdate(medicalrecordDetail.getBirthdate());
-			medicalrecord.setMedications(medicalrecordDetail.getMedications());
-			medicalrecord.setAllergies(medicalrecordDetail.getAllergies());
-			listMedicalrecords.add(medicalrecord);
-			return medicalrecord;
+			return medicalrecordService.createmedicalrecord(medicalrecordDetail);
 		} catch (Exception e) {
 			LOGGER.error( e.getMessage());
 		}finally {
@@ -64,14 +50,7 @@ public class MedicalrecordController {
 	public void updatemedicalrecord(@RequestBody MedicalrecordDetail medicalrecordDetail) {
 		try {
 			LOGGER.info("begin updateMedicalrecord");
-			for (Medicalrecord medicalrecord : listMedicalrecords) {
-				if (medicalrecord.getFirstName().equals(medicalrecordDetail.getFirstName()) && medicalrecord.getLastName().equals(medicalrecordDetail.getLastName())) {
-					medicalrecord.setBirthdate(medicalrecordDetail.getBirthdate());
-					medicalrecord.setMedications(medicalrecordDetail.getMedications());
-					medicalrecord.setAllergies(medicalrecordDetail.getAllergies());
-					
-				}
-			}
+medicalrecordService.updatemedicalrecord(medicalrecordDetail);
 		} catch (Exception e) {
 			LOGGER.error( e.getMessage());
 		}finally {
@@ -84,13 +63,7 @@ public class MedicalrecordController {
 	public Medicalrecord deletemedicalrecord(@PathVariable String firstName, @PathVariable String lastName) {
 		try {
 			LOGGER.info("begin deleteMedicalrecord");
-			for (Medicalrecord medicalrecord : listMedicalrecords) {
-				if (medicalrecord.firstName.equals(firstName) && medicalrecord.lastName.equals(lastName)) {
-					listMedicalrecords.remove(medicalrecord);
-					return medicalrecord;
-				}
-
-			}
+			medicalrecordService.deletemedicalrecord(firstName, lastName);
 		} catch (Exception e) {
 			LOGGER.error( e.getMessage());
 		}finally {
@@ -99,22 +72,5 @@ public class MedicalrecordController {
 		return null;
 	}
 	
-	
-	@PostConstruct
-	public void loadData() {
-		try {
-			LOGGER.info("begin MedicalrecordController.loadData");
-			listMedicalrecords = medicalrecordService.loadMedicalrecords();
-
-		} catch (JsonParseException e) {
-			LOGGER.error(e.getMessage());
-		} catch (JsonMappingException e) {
-			LOGGER.error(e.getMessage());
-		} catch (IOException e) {
-			LOGGER.error(e.getMessage());
-		} finally {
-			LOGGER.info("end MedicalrecordController.loadData");
-		}
-	}
 
 }

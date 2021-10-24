@@ -48,7 +48,8 @@ public class PersonController_0_Test {
 		.content("{\"firstName\":\"Tessa2\",\"lastName\":\"Carman\",\"address\":\"834 Binoc Ave\",\"city\":\"Culver\",\"zip\":\"97451\",\"phone\":\"841-874-6512\",\"email\":\"tenz@email.com\"}"))));
 		// WHEN
 		Person expectedPerson = null;
-		for (Person person : personController.listPersons) {
+		
+		for (Person person : personController.personService.listPersons) {
 			if (person.getFirstName().equals("Tessa2"))
 				expectedPerson = person;
 		}
@@ -64,7 +65,7 @@ public class PersonController_0_Test {
 
 		// WHEN
 		Person expectedPerson = null;
-		for (Person person : personController.listPersons) {
+		for (Person person : personController.personService.listPersons) {
 			if (person.getFirstName().equals("Tessa") && person.getLastName().equals("Carman"))
 				expectedPerson = person;
 		}
@@ -81,7 +82,7 @@ public class PersonController_0_Test {
 
 		// WHEN
 		Person expectedUpdatedPerson = null;
-		for (Person person : personController.listPersons) {
+		for (Person person : personController.personService.listPersons) {
 			if (person.getCity().equals("Culver2"))
 				expectedUpdatedPerson = person;
 		}

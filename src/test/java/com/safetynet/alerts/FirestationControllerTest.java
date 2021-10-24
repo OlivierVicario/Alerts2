@@ -2,14 +2,12 @@ package com.safetynet.alerts;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.safetynet.alerts.controller.FirestationController;
@@ -22,7 +20,7 @@ public class FirestationControllerTest {
 	private MockMvc mockMvc;
 
 	@Autowired
-	FirestationController firestationController;
+	public FirestationController firestationController;
 
 	@Test
 	public void shouldAddFirestation() throws Exception {
@@ -31,7 +29,7 @@ public class FirestationControllerTest {
 
 		// WHEN
 		Firestation expectedFirestation = null;
-		for (Firestation firestation : firestationController.listFirestations) {
+		for (Firestation firestation : firestationController.firestationService.listFirestations) {
 			if (firestation.getAddress().equals("19 Versailles street"))
 				expectedFirestation = firestation;
 		}
@@ -48,7 +46,7 @@ public class FirestationControllerTest {
 
 		// WHEN
 		Firestation expectedFirestation = null;
-		for (Firestation firestation : firestationController.listFirestations) {
+		for (Firestation firestation : firestationController.firestationService.listFirestations) {
 			if (firestation.station.equals("15") && firestation.address.equals("834 Binoc Ave"))
 				expectedFirestation = firestation;
 		}
@@ -64,7 +62,7 @@ public class FirestationControllerTest {
 
 		// WHEN
 		Firestation expectedFirestation = null;
-		for (Firestation firestation : firestationController.listFirestations) {
+		for (Firestation firestation : firestationController.firestationService.listFirestations) {
 			if (firestation.getStation().equals("25"))
 				firestation.setAddress("21 Versailles street");
 		}

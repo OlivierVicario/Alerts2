@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-//classe intermediaire
+
 public class Patient {
 	String firstName;
 	String lastName;

@@ -21,18 +21,16 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.controller.PersonController;
 import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.model.PersonDetail;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 public class PersonController_1_Test {
-	//variante test avec fourniture infos mock dans le code
+
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -146,11 +144,6 @@ public class PersonController_1_Test {
 		person.setZip("zipToADD");
 		person.setEmail("emailToADD");
 		person.setPhone("phoneToADD");
-
-		/*when(personController.createPerson(any(PersonDetail.class))).thenReturn(person);
-		ObjectMapper objectMapper = new ObjectMapper();
-		mockMvc.perform(post("/person/add").content(objectMapper.writeValueAsString(personDetailToAdd))
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));*/
 		
 		when(personController.updatePerson("nomToADD", "lastNameToADD", "adressToADD", "cityToADD", "zipToADD", "emailToADD", "phoneToADD")).thenReturn(person);
 		mockMvc.perform(put("/person/update/nomToADD/lastNameToADD/adressToADD/cityToADD/zipToADD/emailToADD/phoneToADD"))

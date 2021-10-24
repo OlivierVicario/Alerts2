@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.safetynet.alerts.controller.MedicalrecordController;
 import com.safetynet.alerts.model.Medicalrecord;
-import com.safetynet.alerts.model.Person;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -33,7 +32,7 @@ public class MedicalrecordControllerTest {
 
 		// WHEN
 		Medicalrecord expectedMedicalrecord = null;
-		for (Medicalrecord medicalrecord : medicalrecordController.listMedicalrecords) {
+		for (Medicalrecord medicalrecord : medicalrecordController.medicalrecordService.listMedicalrecords) {
 			if (medicalrecord.getFirstName().equals("Tessa2"))
 				expectedMedicalrecord = medicalrecord;
 		}
@@ -46,12 +45,12 @@ public class MedicalrecordControllerTest {
 	public void shouldUpdateMedicalrecord() throws Exception {
 		// GIVEN
 		this.mockMvc.perform(put("/medicalrecord/update").contentType(MediaType.APPLICATION_JSON)
-				.content("{\"firstName\":\"Sophia\",\"lastName\":\"Zemicks\",\"birthdate\":\"0/0/0\",\"medications\":[\"Culver: 2mg\"],\"allergies\":[\"water\",\"soap\"]}"));
+				.content("{\"firstName\":\"Sophia\",\"lastName\":\"Zemicks\",\"birthdate\":\"03/06/1988\",\"medications\":[\"Culver: 2mg\"],\"allergies\":[\"water\",\"soap\"]}"));
 
 		// WHEN
 		Medicalrecord expectedMedicalrecord = null;
-		for (Medicalrecord medicalrecord : medicalrecordController.listMedicalrecords) {
-			if (medicalrecord.getBirthdate().equals("0/0/0"))
+		for (Medicalrecord medicalrecord : medicalrecordController.medicalrecordService.listMedicalrecords) {
+			if (medicalrecord.getBirthdate().equals("03/06/1988"))
 				expectedMedicalrecord = medicalrecord;
 		}
 
@@ -66,7 +65,7 @@ public class MedicalrecordControllerTest {
 
 		// WHEN
 		Medicalrecord expectedMedicalrecord = null;
-		for (Medicalrecord medicalrecord : medicalrecordController.listMedicalrecords) {
+		for (Medicalrecord medicalrecord : medicalrecordController.medicalrecordService.listMedicalrecords) {
 			if (medicalrecord.getFirstName().equals("Tessa2") && medicalrecord.getLastName().equals("Carman"))
 				expectedMedicalrecord = medicalrecord;
 		}

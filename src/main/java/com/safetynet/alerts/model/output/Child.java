@@ -1,10 +1,7 @@
 package com.safetynet.alerts.model.output;
 
-import java.util.Collections;
 import java.util.List;
 
-
-//classe intermediaire
 public class Child {
 	String firstName;
 	String lastName;
@@ -36,7 +33,6 @@ public class Child {
 	}
 
 	public List<String> getFoyerMembers() {
-		//return Collections.unmodifiableList(foyerMembers);
 		return foyerMembers;
 	}
 
